@@ -11,7 +11,6 @@
 
 package org.eclipse.mylyn.internal.hudson.ui;
 
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -72,12 +71,13 @@ public class HudsonDiscovery extends BuildsUiStartup {
 		List<IBuildServer> servers = BuildsUi.getModel().getServers();
 		for (IBuildServer server : servers) {
 			try {
-				if (server.getUrl().equalsIgnoreCase(uri.toURL().toExternalForm())) {
+				if (new URI(server.getUrl() + "/").normalize().equals(uri)) {
 					return false;
 				}
-			} catch (MalformedURLException e) {
-				StatusHandler.log(new Status(IStatus.ERROR, HudsonConnectorUi.ID_PLUGIN,
-						Messages.HudsonDiscovery_CannotConvertURI, e));
+			} catch (URISyntaxException e) {
+				// disable, this could get logged very frequently
+//				StatusHandler.log(new Status(IStatus.ERROR, HudsonConnectorUi.ID_PLUGIN,
+//						Messages.HudsonDiscovery_CannotConvertURI, e));
 			}
 		}
 		return true;
@@ -102,7 +102,8 @@ public class HudsonDiscovery extends BuildsUiStartup {
 												.getHost() }));
 
 							} else {
-								URI uri = new URI(properties.getProperty(HUDSON_URL_PROPERTY_ID).toString());
+								String hudsonUrl = properties.getProperty(HUDSON_URL_PROPERTY_ID).toString();
+								URI uri = new URI(hudsonUrl + "/").normalize(); //$NON-NLS-1$
 								if (isNew(uri)) {
 									notifyMessage(
 											Messages.HudsonDiscovery_MessageTitle,
