@@ -32,9 +32,9 @@
       <import plugin="org.eclipse.mylyn.commons.net" version="3.6.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.commons.repositories" version="0.8.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.commons.ui" version="3.6.1" match="compatible"/>
-      <import feature="org.eclipse.mylyn_feature" version="3.5.0.I2011" match="greaterOrEqual"/>
-      <import feature="org.eclipse.mylyn.team_feature" version="3.5.0.I2011" match="greaterOrEqual"/>
-      <import feature="org.eclipse.mylyn.versions" version="0.7.0.I2011" match="greaterOrEqual"/>
+      <import feature="org.eclipse.mylyn_feature" version="3.6.5" match="greaterOrEqual"/>
+      <import feature="org.eclipse.mylyn.team_feature" version="3.6.5" match="greaterOrEqual"/>
+      <import feature="org.eclipse.mylyn.versions" version="0.8.5" match="greaterOrEqual"/>
    </requires>
 
    <plugin
